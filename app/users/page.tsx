@@ -12,14 +12,6 @@ export default async function UserPage() {
     // ใส่ { cache: 'no-store' } เพื่อให้ดึงใหม่ทุกครั้งที่รีเฟรช (เหมือน Real-time)
     const res = await fetch("https://jsonplaceholder.typicode.com/users", {cache: "no-store",});
     
-    // ⭐️ เพิ่มการตรวจสอบสถานะ HTTP 
-    if (!res.ok) {
-        console.error("Failed to fetch data. Status:", res.status);
-        // สามารถดึงเนื้อหาที่ผิดพลาดมาแสดงใน Console ได้
-        const errorText = await res.text();
-        console.error("Received Content:", errorText.substring(0, 200) + "..."); // แสดงตัวอย่าง 200 ตัวแรก
-        throw new Error('Failed to fetch user data'); // โยน Error เพื่อให้ Next.js แสดงหน้า Error
-    }
     const users: User[] = await res.json();
 
     return (
