@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+
 // 1. กำหนดว่า params จะมีหน้าตาเป็นยังไง
 interface Props{
     params: Promise<{ id:string}>;
@@ -9,6 +11,12 @@ export default async function UserDetailPage({params}:Props){
     const { id } = await params;
 // 3. ดึงข้อมูลเฉพาะคนนี้ โดยเอา id ไปต่อท้าย URL API
     const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+    // 4 เช็คว่า API เจอข้อมูลไหม (ถ้า id มั่ว API นี้จะส่งกลับเป็น object ว่างๆ หรือ 404)
+  // แต่สำหรับ jsonplaceholder ถ้าหาไม่เจอ res.ok จะเป็น false หรือ user จะเป็น empty
+    if (!res.ok) {
+        notFound();// <--- สั่งให้เด้งไปหน้า 404 ทันที! ไม่ทำบรรทัดล่างต่อแล้ว
+    }
+
     const user = await res.json();
 
     return (

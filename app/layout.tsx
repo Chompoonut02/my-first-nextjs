@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import TopNav from "@/components/TopNav";
+import Sidebar from "@/components/Sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,15 +26,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-      
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* 2. วาง Navbar ไว้เหนือ children */}
-        <Navbar />
+      {/* ใช้ h-screen และ overflow-hidden เพื่อไม่ให้ Scrollbar ซ้อนกันมั่ว */}
+      <body className="flex h-screen bg-gray-50 overflow-hidden">
         
-        {/* 3. children คือส่วนเนื้อหาของแต่ละหน้า (page.tsx) ที่จะเปลี่ยนไปเรื่อยๆ */}
-        {children}
+        {/* --- ส่วนที่ 1: Sidebar (ซ้าย) --- */}
+        {/* ไม่ต้องกำหนด width ที่นี่ เพราะ Sidebar จัดการตัวเองแล้ว */}
+        <Sidebar />
+
+        {/* --- ส่วนที่ 2: พื้นที่ขวาทั้งหมด (Wrapper) --- */}
+        <div className="flex-1 flex flex-col min-w-0">
+          
+          {/* 2.1 Navbar (บน) */}
+          <TopNav />
+
+          {/* 2.2 เนื้อหาหลัก (ล่าง) */}
+          {/* ใส่ overflow-y-auto เพื่อให้ Scroll ได้แค่ตรงเนื้อหา Sidebar กับ Navbar จะอยู่นิ่งๆ */}
+          <main className="flex-1 overflow-y-auto ">
+            {children}
+          </main>
+
+        </div>
+        
       </body>
     </html>
   );

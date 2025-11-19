@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home(){
   const [count, setCount] = useState(0);
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white gap-6">
+    <div className="p-8 flex min-h-screen flex-col items-center justify-center bg-black text-white gap-6">
       <h1 className="text-5xl font-bold text-blue-500">Hello Next.js 15!</h1>
 
       <div className="text-center p-6 border border-gray-700 rounded-xl">
