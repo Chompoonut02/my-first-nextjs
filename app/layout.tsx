@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
+      
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* 2. วาง Navbar ไว้เหนือ children */}
+        <Navbar />
+        
+        {/* 3. children คือส่วนเนื้อหาของแต่ละหน้า (page.tsx) ที่จะเปลี่ยนไปเรื่อยๆ */}
         {children}
       </body>
     </html>
