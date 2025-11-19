@@ -24,13 +24,16 @@ export default async function UserPage() {
                 {/* 3. แสดงข้อมูลด้วย Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {users.map((user) => (
-                    <div key={user.id} 
-                        className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition border border-gray-200">
-                        <h2 className="text-xl font-semibold text-gray-800 mb-2">{user.name}</h2>
-                        <p className="text-gray-500 text-sm mb-1">{user.email}</p>
-                        <p className="text-blue-500 text-sm">{user.website}</p>
-                    </div>
-                ))}
+                        // เปลี่ยน div เป็น Link และใส่ href แบบเจาะจง id
+                        <Link href={`/users/${user.id}`} key={user.id} className="block"// ใส่ block ให้ link คลุมทั้งก้อน
+                        >
+                            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition border border-gray-200 cursor-pointer h-full">
+                                <h2 className="test-xl font-semibold text-gray-800 mb-2">{user.name}</h2>
+                                <p className="text-gray-500 text-sm mb-1">{user.email}</p>
+                                <p className="text-blue-500 text-sm">{user.website}</p>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </div>
